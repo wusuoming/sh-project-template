@@ -5,7 +5,7 @@
 
 <hibernate-mapping default-access="field">
 
-    <class name="com.template.model.user.User" table="user" dynamic-insert="true" dynamic-update="true" where="active=true">
+    <class name="com.template.model.User" table="user" dynamic-insert="true" dynamic-update="true" where="active=true">
         <id name="id" column="id" type="java.lang.Integer">
             <generator class="native"/>
         </id>

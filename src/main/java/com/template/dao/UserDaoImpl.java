@@ -1,7 +1,7 @@
 package com.template.dao;
 
 import com.template.dao.standard.UserDao;
-import com.template.model.user.User;
+import com.template.model.User;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import java.util.List;
