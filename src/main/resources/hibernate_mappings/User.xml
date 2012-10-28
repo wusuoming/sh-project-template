@@ -5,23 +5,15 @@
 
 <hibernate-mapping default-access="field">
 
-    <class name="com.template.model.User" table="user" dynamic-insert="true" dynamic-update="true" where="active=true">
+    <class name="com.template.model.User" table="user" dynamic-insert="true">
         <id name="id" column="id" type="java.lang.Integer">
             <generator class="native"/>
         </id>
         <version name="version" column="version" type="java.lang.Integer"/>
         <property name="active" column="active" type="java.lang.Boolean"/>
         <property name="guid" column="guid" type="java.lang.String"/>
-        <component name="loginInfo" class="com.template.model.user.LoginInfo">
-            <property name="username" column="username" type="java.lang.String"/>
-            <property name="password" column="password" type="java.lang.String"/>
-        </component>
-        <component name="name" class="com.template.model.user.Name">
-            <property name="firstName" column="firstname" type="java.lang.String"/>
-            <property name="middleName" column="middlename" type="java.lang.String"/>
-            <property name="lastName" column="lastname" type="java.lang.String"/>
-            <property name="nickName" column="nickname" type="java.lang.String"/>
-        </component>
+        <property name="username" column="username" type="java.lang.String"/>
+        <property name="password" column="password" type="java.lang.String"/>
     </class>
 
 </hibernate-mapping>
