@@ -6,9 +6,5 @@ CREATE TABLE user(
   guid varchar(255) DEFAULT NULL ,
   username varchar(255) DEFAULT NULL ,
   password varchar(255) DEFAULT NULL ,
-  firstname varchar(255) DEFAULT NULL ,
-  middlename varchar(255) DEFAULT NULL ,
-  lastname varchar(255) DEFAULT NULL ,
-  nickname varchar(255) DEFAULT NULL ,
   PRIMARY KEY (id)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
