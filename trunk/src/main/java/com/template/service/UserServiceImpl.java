@@ -1,7 +1,7 @@
 package com.template.service;
 
 import com.template.dao.standard.UserDao;
-import com.template.model.user.User;
+import com.template.model.User;
 import com.template.service.standard.UserService;
 
 import java.util.List;

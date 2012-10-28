@@ -1,6 +1,6 @@
 package com.template.dao.standard;
 
-import com.template.model.user.User;
+import com.template.model.User;
 
 import java.util.List;
 

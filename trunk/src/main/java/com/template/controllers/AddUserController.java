@@ -1,6 +1,6 @@
 package com.template.controllers;
 
-import com.template.model.user.User;
+import com.template.model.User;
 import com.template.service.standard.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
