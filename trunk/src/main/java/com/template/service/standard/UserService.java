@@ -1,5 +1,6 @@
 package com.template.service.standard;
 
+import com.template.dto.UserDTO;
 import com.template.model.User;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface UserService {
     void addUser(User user);
 
     List<User> loadUsers();
+
+    User loadUserByGuid(String userGuid);
+
+    void saveOrUpdateUserDTO(UserDTO userDTO);
 }

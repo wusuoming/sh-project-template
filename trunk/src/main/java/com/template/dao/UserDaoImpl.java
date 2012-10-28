@@ -15,12 +15,24 @@ import java.util.List;
  */
 public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
-    public void createUser(User user) {
+    @Override
+    public User findUserByGuid(String userGuid) {
+        return (User) getHibernateTemplate().find("from User u where u.guid=?", userGuid);
+    }
+
+    @Override
+    public void saveOrUpdateUser(User user) {
         getHibernateTemplate().saveOrUpdate(user);
     }
 
+    @Override
+    public void createUser(User user) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
     public List<User> findUsers() {
-        return getHibernateTemplate().find("from User");
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
 }
