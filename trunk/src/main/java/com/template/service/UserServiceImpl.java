@@ -5,6 +5,7 @@ import com.template.dto.UserDTO;
 import com.template.model.User;
 import com.template.service.standard.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +33,17 @@ public class UserServiceImpl implements UserService {
     public void saveOrUpdateUserDTO(UserDTO userDTO) {
         User user = userDTO.toUser();
         userDao.saveOrUpdateUser(user);
+    }
+
+    @Override
+    public List<UserDTO> loadUserDTOs() {
+        List<User> users = userDao.findUsers();
+        List<UserDTO> userDTOs = new ArrayList<UserDTO>();
+        for (User user : users) {
+            UserDTO userDTO = new UserDTO(user);
+            userDTOs.add(userDTO);
+        }
+        return userDTOs;
     }
 
     public void setUserDao(UserDao userDao) {

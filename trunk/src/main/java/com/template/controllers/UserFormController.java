@@ -24,7 +24,7 @@ public class UserFormController extends SimpleFormController {
     public UserFormController() {
         setCommandClass(UserDTO.class);
         setCommandName("userDTO");
-        setFormView("views/userForm");
+        setFormView("userForm");
     }
 
     @Override
