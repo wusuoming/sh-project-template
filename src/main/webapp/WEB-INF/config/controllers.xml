@@ -8,4 +8,8 @@
     <bean id="userFormController" class="com.template.controllers.UserFormController">
         <property name="userService" ref="userService"/>
     </bean>
+
+    <bean id="userOverviewController" class="com.template.controllers.UserOverviewController">
+        <property name="userService" ref="userService"/>
+    </bean>
 </beans>

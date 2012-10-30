@@ -17,8 +17,8 @@
     </thead>
     <c:forEach items="${users}" var="user">
         <tr>
-            <td>${user.loginInfo.username}</td>
-            <td>${user.loginInfo.password}</td>
+            <td>${user.username}</td>
+            <td>${user.password}</td>
         </tr>
     </c:forEach>
 </table>

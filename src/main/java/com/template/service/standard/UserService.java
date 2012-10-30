@@ -21,4 +21,6 @@ public interface UserService {
     User loadUserByGuid(String userGuid);
 
     void saveOrUpdateUserDTO(UserDTO userDTO);
+
+    List<UserDTO> loadUserDTOs();
 }
