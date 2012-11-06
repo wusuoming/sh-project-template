@@ -4,6 +4,8 @@ import com.template.dao.standard.UserDao;
 import com.template.dto.UserDTO;
 import com.template.model.User;
 import com.template.service.standard.UserService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +48,12 @@ public class UserServiceImpl implements UserService {
         return userDTOs;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        throw new UnsupportedOperationException("Not yet implemented!");
+    }
+
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
-
 }

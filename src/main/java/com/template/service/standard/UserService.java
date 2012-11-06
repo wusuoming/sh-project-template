@@ -2,17 +2,17 @@ package com.template.service.standard;
 
 import com.template.dto.UserDTO;
 import com.template.model.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
- * User: alexzhong
+ * User: Zhong Gang
  * Date: 7/6/11
  * Time: 3:24 PM
- * To change this template use File | Settings | File Templates.
  */
-public interface UserService {
+public interface UserService extends UserDetailsService{
 
     void addUser(User user);
 

@@ -5,19 +5,23 @@
 
 <hibernate-mapping default-access="field">
 
-    <class name="com.template.model.User" table="user" dynamic-insert="true">
+    <class name="com.template.model.Role" table="role" dynamic-insert="true">
         <id name="id" column="id" type="java.lang.Integer">
             <generator class="native"/>
         </id>
         <version name="version" column="version" type="java.lang.Integer"/>
         <property name="active" column="active" type="java.lang.Boolean"/>
         <property name="guid" column="guid" type="java.lang.String"/>
-        <property name="username" column="username" type="java.lang.String"/>
-        <property name="password" column="password" type="java.lang.String"/>
+        <property name="name" column="name" type="java.lang.String"/>
 
-        <bag name="roles" table="user_role" cascade="all">
-            <key column="user_id"/>
-            <many-to-many column="role_id" class="com.template.model.Role"/>
+        <bag name="privileges" table="privileges">
+            <key column="role_id"/>
+            <element column="privilege">
+                <type name="org.hibernate.type.EnumType">
+                    <param name="enumClass">com.template.model.Privilege</param>
+                    <param name="type">12</param>
+                </type>
+            </element>
         </bag>
     </class>
 
