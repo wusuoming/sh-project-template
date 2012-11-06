@@ -3,8 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <import resource="service.xml"/>
-
     <bean id="userFormController" class="com.template.controllers.UserFormController">
         <property name="userService" ref="userService"/>
     </bean>
@@ -12,4 +10,14 @@
     <bean id="userOverviewController" class="com.template.controllers.UserOverviewController">
         <property name="userService" ref="userService"/>
     </bean>
+
+    <bean id="forendLoginController" class="com.template.controllers.ForendLoginController"/>
+
+    <bean id="backendLoginController" class="com.template.controllers.BackendLoginController"/>
+
+    <bean id="backendAuthenticationSuccessController"
+          class="com.template.controllers.BackendAuthenticationSuccessController"/>
+
+    <bean id="forendAuthenticationSuccessController"
+          class="com.template.controllers.ForendAuthenticationSuccessController"/>
 </beans>

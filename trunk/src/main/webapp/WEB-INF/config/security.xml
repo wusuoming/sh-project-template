@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <http pattern="/forend/login.do*" security="none"/>
+    <http pattern="/backend/login.do*" security="none"/>
+    <http pattern="/forend/login/check" security="none"/>
+    <http pattern="/backend/login/check" security="none"/>
+
+    <http auto-config="true" entry-point-ref="systemAuthenticationEntryPoint">
+
+        <custom-filter ref="forendLoginFilter" before="FORM_LOGIN_FILTER"/>
+        <custom-filter ref="backendLoginFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+
+        <intercept-url pattern="/**/*.do" access="ROLE_ADMIN"/>
+    </http>
+
+    <beans:bean id="systemAuthenticationEntryPoint" class="com.template.security.SystemAuthenticationEntryPoint"/>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="forendAuthenticationProvider"/>
+        <authentication-provider ref="backendAuthenticationProvider"/>
+    </authentication-manager>
+
+    <beans:bean id="backendLoginFilter"
+                class="com.template.security.BackendAuthenticationFilter">
+        <beans:constructor-arg value="/j_spring_security_check"/>
+        <beans:property name="authenticationSuccessHandler" ref="backendAuthenticationSuccessHandler"/>
+        <beans:property name="authenticationFailureHandler" ref="backendAuthenticationFailureHandler"/>
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+    </beans:bean>
+
+    <beans:bean id="forendLoginFilter"
+                class="com.template.security.ForendAuthenticationFilter">
+        <beans:constructor-arg value="/forend/login/check"/>
+        <beans:property name="authenticationSuccessHandler" ref="forendAuthenticationSuccessHandler"/>
+        <beans:property name="authenticationFailureHandler" ref="forendAuthenticationFailureHandler"/>
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="filterProcessesUrl" value="/forend/login/check"/>
+    </beans:bean>
+
+    <beans:bean id="forendAuthenticationSuccessHandler"
+                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+        <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
+        <beans:property name="defaultTargetUrl" value="/forend/login/success.do"/>
+    </beans:bean>
+
+    <beans:bean id="backendAuthenticationSuccessHandler"
+                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+        <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
+        <beans:property name="defaultTargetUrl" value="/backend/login/success.do"/>
+    </beans:bean>
+
+    <beans:bean id="backendAuthenticationFailureHandler"
+                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/backend/login.do?error=1"/>
+    </beans:bean>
+
+
+    <beans:bean id="forendAuthenticationFailureHandler"
+                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/forend/login.do?error=1"/>
+    </beans:bean>
+
+    <beans:bean id="backendAuthenticationProvider" class="com.template.security.BackendAuthenticationProvider"/>
+    <beans:bean id="forendAuthenticationProvider" class="com.template.security.ForendAuthenticationProvider"/>
+</beans:beans>
