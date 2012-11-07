@@ -10,7 +10,7 @@
     <a href="/forend/login">第一种登录</a>
     <a href="javascript:void(0)">第二种登录</a>
 </p>
-<form action="/forend/login/check" method="post">
+<form action="/backend/login/check" method="post">
     <table>
         <tr>
             <td>用户名：</td>
