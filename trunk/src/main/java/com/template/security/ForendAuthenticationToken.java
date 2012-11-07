@@ -28,11 +28,11 @@ public class ForendAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getCredentials() {
-        throw new UnsupportedOperationException("Not yet implemented!");
+        return null;
     }
 
     @Override
     public Object getPrincipal() {
-        throw new UnsupportedOperationException("Not yet implemented!");
+        return null;
     }
 }

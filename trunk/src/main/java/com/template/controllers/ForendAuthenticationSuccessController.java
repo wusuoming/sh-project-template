@@ -16,6 +16,6 @@ public class ForendAuthenticationSuccessController extends AbstractController {
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        return new ModelAndView("forendLoginSuccess");
+        return new ModelAndView("login/forendLoginSuccess");
     }
 }
