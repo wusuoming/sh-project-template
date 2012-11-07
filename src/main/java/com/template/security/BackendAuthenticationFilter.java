@@ -30,7 +30,7 @@ public class BackendAuthenticationFilter extends AbstractAuthenticationProcessin
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         String username = ServletRequestUtils.getRequiredStringParameter(request, "username");
         String password = ServletRequestUtils.getRequiredStringParameter(request, "password");
-        String captcha = ServletRequestUtils.getRequiredStringParameter(request, "captcha");
+        String captcha = ServletRequestUtils.getStringParameter(request, "captcha", null);
         BackendAuthenticationToken authenticationToken = new BackendAuthenticationToken(username, password, captcha);
         return this.getAuthenticationManager().authenticate(authenticationToken);
     }

@@ -16,6 +16,6 @@ public class BackendAuthenticationSuccessController extends AbstractController {
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        return new ModelAndView("backendLoginSuccess");
+        return new ModelAndView("login/backendLoginSuccess");
     }
 }

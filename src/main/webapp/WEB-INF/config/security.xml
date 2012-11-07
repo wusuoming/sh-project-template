@@ -26,7 +26,7 @@
 
     <beans:bean id="backendLoginFilter"
                 class="com.template.security.BackendAuthenticationFilter">
-        <beans:constructor-arg value="/forend/login/check"/>
+        <beans:constructor-arg value="/backend/login/check"/>
         <beans:property name="authenticationSuccessHandler" ref="backendAuthenticationSuccessHandler"/>
         <beans:property name="authenticationFailureHandler" ref="backendAuthenticationFailureHandler"/>
         <beans:property name="authenticationManager" ref="authenticationManager"/>
