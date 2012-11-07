@@ -8,8 +8,6 @@
 
     <http pattern="/forend/login" security="none"/>
     <http pattern="/backend/login" security="none"/>
-    <http pattern="/forend/login/check" security="none"/>
-    <http pattern="/backend/login/check" security="none"/>
 
     <http entry-point-ref="systemAuthenticationEntryPoint" authentication-manager-ref="authenticationManager">
 
