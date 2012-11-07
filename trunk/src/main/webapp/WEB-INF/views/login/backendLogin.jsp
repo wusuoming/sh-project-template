@@ -7,10 +7,10 @@
 </head>
 <body>
 <p>
-    <a href="/forend/login.do">第一种登录</a>
+    <a href="/forend/login">第一种登录</a>
     <a href="javascript:void(0)">第二种登录</a>
 </p>
-<form action="/j_spring_security_check" method="post">
+<form action="/forend/login/check" method="post">
     <table>
         <tr>
             <td>用户名：</td>

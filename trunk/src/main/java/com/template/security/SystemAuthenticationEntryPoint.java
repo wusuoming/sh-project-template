@@ -20,10 +20,10 @@ public class SystemAuthenticationEntryPoint implements AuthenticationEntryPoint 
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         StringBuffer requestURL = request.getRequestURL();
         if (requestURL.toString().contains("backend")) {
-            response.sendRedirect("/backend/login.do");
+            response.sendRedirect("/backend/login");
         }
         if (requestURL.toString().contains("forend")) {
-            response.sendRedirect("/forend/login.do");
+            response.sendRedirect("/forend/login");
         }
     }
 }

@@ -8,7 +8,7 @@
 <body>
 <p>
     <a href="javascript:void(0)">第一种登录</a>
-    <a href="/backend/login.do">第二种登录</a>
+    <a href="/backend/login">第二种登录</a>
 </p>
 <form action="/forend/login/check" method="post">
     <table>

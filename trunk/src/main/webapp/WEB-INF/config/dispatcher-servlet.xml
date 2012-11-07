@@ -24,12 +24,12 @@
         <property name="order" value="1"/>
         <property name="mappings">
             <props>
-                <prop key="/user/form.do">userFormController</prop>
-                <prop key="/user/overview.do">userOverviewController</prop>
-                <prop key="/forend/login.do*">forendLoginController</prop>
-                <prop key="/backend/login.do*">backendLoginController</prop>
-                <prop key="/forend/login/success.do">forendAuthenticationSuccessController</prop>
-                <prop key="/backend/login/success.do">backendAuthenticationSuccessController</prop>
+                <prop key="/user/form">userFormController</prop>
+                <prop key="/user/overview">userOverviewController</prop>
+                <prop key="/forend/login*">forendLoginController</prop>
+                <prop key="/backend/login*">backendLoginController</prop>
+                <prop key="/forend/login/success">forendAuthenticationSuccessController</prop>
+                <prop key="/backend/login/success">backendAuthenticationSuccessController</prop>
             </props>
         </property>
     </bean>
