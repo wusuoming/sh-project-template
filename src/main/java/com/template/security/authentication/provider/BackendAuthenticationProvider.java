@@ -1,5 +1,6 @@
-package com.template.security;
+package com.template.security.authentication.provider;
 
+import com.template.security.authentication.token.BackendAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;

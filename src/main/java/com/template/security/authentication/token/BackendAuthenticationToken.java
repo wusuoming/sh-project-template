@@ -1,6 +1,9 @@
-package com.template.security;
+package com.template.security.authentication.token;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,8 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 public class BackendAuthenticationToken extends UsernamePasswordAuthenticationToken {
     private String captcha;
 
-    public BackendAuthenticationToken(Object principal, Object credentials, String captcha) {
-        super(principal, credentials);
+    public BackendAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, String captcha) {
+        super(principal, credentials, authorities);
         this.captcha = captcha;
     }
 
