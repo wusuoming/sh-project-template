@@ -1,6 +1,11 @@
 package com.template.security;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,8 +17,8 @@ public class ForendAuthenticationToken extends AbstractAuthenticationToken {
     private String email;
     private String phone;
 
-    public ForendAuthenticationToken(String email, String phone) {
-        super(null);
+    public ForendAuthenticationToken(String email, String phone, List<GrantedAuthority> grantedAuthorities) {
+        super(grantedAuthorities);
         this.email = email;
         this.phone = phone;
     }
