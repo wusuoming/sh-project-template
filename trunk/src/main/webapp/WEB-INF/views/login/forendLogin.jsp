@@ -10,7 +10,8 @@
     <a href="javascript:void(0)">第一种登录</a>
     <a href="/backend/login">第二种登录</a>
 </p>
-<form action="/forend/login/check" method="post">
+
+<form action="/login/check?token=forend" method="post">
     <table>
         <tr>
             <td>邮件地址：</td>

@@ -9,62 +9,119 @@
     <http pattern="/forend/login" security="none"/>
     <http pattern="/backend/login" security="none"/>
 
-    <http entry-point-ref="systemAuthenticationEntryPoint" authentication-manager-ref="authenticationManager">
+    <http entry-point-ref="multipleAuthenticationLoginEntry" authentication-manager-ref="authenticationManager">
 
-        <custom-filter ref="forendLoginFilter" before="FORM_LOGIN_FILTER"/>
-        <custom-filter ref="backendLoginFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+        <custom-filter ref="multipleAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER"/>
 
         <intercept-url pattern="/backend/login/success" access="ROLE_ADMIN"/>
         <intercept-url pattern="/forend/login/success" access="ROLE_ADMIN"/>
         <intercept-url pattern="/" access="ROLE_ADMIN"/>
     </http>
 
-    <beans:bean id="systemAuthenticationEntryPoint" class="com.template.security.SystemAuthenticationEntryPoint"/>
+    <beans:bean id="multipleAuthenticationLoginEntry"
+                class="com.template.security.login.MultipleAuthenticationLoginEntry">
+        <beans:property name="defaultLoginUrl" value="/backend/login"/>
+        <beans:property name="directUrlResolvers">
+            <beans:list>
+                <beans:ref bean="backendLoginEntry"/>
+                <beans:ref bean="forendLoginEntry"/>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+
+    <beans:bean id="backendLoginEntry" class="com.template.security.shared.RequestUriDirectUrlResolver">
+        <beans:property name="pattern" value="/backend"/>
+        <beans:property name="loginUrl" value="/backend/login"/>
+    </beans:bean>
+
+    <beans:bean id="forendLoginEntry" class="com.template.security.shared.RequestUriDirectUrlResolver">
+        <beans:property name="pattern" value="/forend"/>
+        <beans:property name="loginUrl" value="/forend/login"/>
+    </beans:bean>
+
+    <beans:bean id="multipleAuthenticationProcessingFilter"
+                class="com.template.security.filter.MultipleAuthenticationProcessingFilter">
+        <beans:constructor-arg value="/login/check"/>
+        <beans:property name="tokenResolvers">
+            <beans:list>
+                <beans:ref bean="backendAuthenticationTokenResolver"/>
+                <beans:ref bean="forendAuthenticationTokenResolver"/>
+            </beans:list>
+        </beans:property>
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="authenticationSuccessHandler" ref="multipleAuthenticationSuccessHandler"/>
+        <beans:property name="authenticationFailureHandler" ref="multipleAuthenticationFailureHandler"/>
+    </beans:bean>
+
+    <beans:bean id="backendAuthenticationTokenResolver"
+                class="com.template.security.filter.BackendAuthenticationTokenResolver">
+        <beans:property name="parameterName" value="token"/>
+        <beans:property name="parameterValue" value="backend"/>
+    </beans:bean>
+
+    <beans:bean id="forendAuthenticationTokenResolver"
+                class="com.template.security.filter.ForendAuthenticationTokenResolver">
+        <beans:property name="parameterName" value="token"/>
+        <beans:property name="parameterValue" value="forend"/>
+    </beans:bean>
+
+    <beans:bean id="multipleAuthenticationSuccessHandler"
+                class="com.template.security.authentication.handler.MultipleAuthenticationSuccessHandler">
+        <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
+        <beans:property name="resolvers">
+            <beans:list>
+                <beans:ref bean="backendAuthenticationSuccessUrlResolver"/>
+                <beans:ref bean="forendAuthenticationSuccessUrlResolver"/>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+
+    <beans:bean id="backendAuthenticationSuccessUrlResolver"
+                class="com.template.security.shared.RequestParameterDirectUrlResolver">
+        <beans:property name="parameterName" value="token"/>
+        <beans:property name="pattern" value="backend"/>
+        <beans:property name="loginUrl" value="/backend/login/success"/>
+    </beans:bean>
+
+    <beans:bean id="forendAuthenticationSuccessUrlResolver"
+                class="com.template.security.shared.RequestParameterDirectUrlResolver">
+        <beans:property name="parameterName" value="token"/>
+        <beans:property name="pattern" value="forend"/>
+        <beans:property name="loginUrl" value="/forend/login/success"/>
+    </beans:bean>
+
+    <beans:bean id="multipleAuthenticationFailureHandler"
+                class="com.template.security.authentication.handler.MultipleAuthenticationFailureHandler">
+        <beans:property name="resolvers">
+            <beans:list>
+                <beans:ref bean="backendAuthenticationFailureUrlResolver"/>
+                <beans:ref bean="forendAuthenticationFailureUrlResolver"/>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+
+    <beans:bean id="backendAuthenticationFailureUrlResolver"
+                class="com.template.security.shared.RequestParameterDirectUrlResolver">
+        <beans:property name="parameterName" value="token"/>
+        <beans:property name="pattern" value="backend"/>
+        <beans:property name="loginUrl" value="/backend/login?error=1"/>
+    </beans:bean>
+
+    <beans:bean id="forendAuthenticationFailureUrlResolver"
+                class="com.template.security.shared.RequestParameterDirectUrlResolver">
+        <beans:property name="parameterName" value="token"/>
+        <beans:property name="pattern" value="forend"/>
+        <beans:property name="loginUrl" value="/forend/login?error=1"/>
+    </beans:bean>
+
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="forendAuthenticationProvider"/>
         <authentication-provider ref="backendAuthenticationProvider"/>
     </authentication-manager>
 
-    <beans:bean id="backendLoginFilter"
-                class="com.template.security.BackendAuthenticationFilter">
-        <beans:constructor-arg value="/backend/login/check"/>
-        <beans:property name="authenticationSuccessHandler" ref="backendAuthenticationSuccessHandler"/>
-        <beans:property name="authenticationFailureHandler" ref="backendAuthenticationFailureHandler"/>
-        <beans:property name="authenticationManager" ref="authenticationManager"/>
-    </beans:bean>
-
-    <beans:bean id="forendLoginFilter"
-                class="com.template.security.ForendAuthenticationFilter">
-        <beans:constructor-arg value="/forend/login/check"/>
-        <beans:property name="authenticationSuccessHandler" ref="forendAuthenticationSuccessHandler"/>
-        <beans:property name="authenticationFailureHandler" ref="forendAuthenticationFailureHandler"/>
-        <beans:property name="authenticationManager" ref="authenticationManager"/>
-    </beans:bean>
-
-    <beans:bean id="forendAuthenticationSuccessHandler"
-                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
-        <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
-        <beans:property name="defaultTargetUrl" value="/forend/login/success"/>
-    </beans:bean>
-
-    <beans:bean id="backendAuthenticationSuccessHandler"
-                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
-        <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
-        <beans:property name="defaultTargetUrl" value="/backend/login/success"/>
-    </beans:bean>
-
-    <beans:bean id="backendAuthenticationFailureHandler"
-                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-        <beans:property name="defaultFailureUrl" value="/backend/login?error=1"/>
-    </beans:bean>
-
-
-    <beans:bean id="forendAuthenticationFailureHandler"
-                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-        <beans:property name="defaultFailureUrl" value="/forend/login?error=1"/>
-    </beans:bean>
-
-    <beans:bean id="backendAuthenticationProvider" class="com.template.security.BackendAuthenticationProvider"/>
-    <beans:bean id="forendAuthenticationProvider" class="com.template.security.ForendAuthenticationProvider"/>
+    <beans:bean id="backendAuthenticationProvider"
+                class="com.template.security.authentication.provider.BackendAuthenticationProvider"/>
+    <beans:bean id="forendAuthenticationProvider"
+                class="com.template.security.authentication.provider.ForendAuthenticationProvider"/>
 </beans:beans>
