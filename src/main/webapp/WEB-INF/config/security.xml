@@ -31,12 +31,12 @@
 
     <beans:bean id="backendLoginEntry" class="com.template.security.shared.RequestUriDirectUrlResolver">
         <beans:property name="pattern" value="/backend"/>
-        <beans:property name="loginUrl" value="/backend/login"/>
+        <beans:property name="directUrl" value="/backend/login"/>
     </beans:bean>
 
     <beans:bean id="forendLoginEntry" class="com.template.security.shared.RequestUriDirectUrlResolver">
         <beans:property name="pattern" value="/forend"/>
-        <beans:property name="loginUrl" value="/forend/login"/>
+        <beans:property name="directUrl" value="/forend/login"/>
     </beans:bean>
 
     <beans:bean id="multipleAuthenticationProcessingFilter"
@@ -80,14 +80,14 @@
                 class="com.template.security.shared.RequestParameterDirectUrlResolver">
         <beans:property name="parameterName" value="token"/>
         <beans:property name="pattern" value="backend"/>
-        <beans:property name="loginUrl" value="/backend/login/success"/>
+        <beans:property name="directUrl" value="/backend/login/success"/>
     </beans:bean>
 
     <beans:bean id="forendAuthenticationSuccessUrlResolver"
                 class="com.template.security.shared.RequestParameterDirectUrlResolver">
         <beans:property name="parameterName" value="token"/>
         <beans:property name="pattern" value="forend"/>
-        <beans:property name="loginUrl" value="/forend/login/success"/>
+        <beans:property name="directUrl" value="/forend/login/success"/>
     </beans:bean>
 
     <beans:bean id="multipleAuthenticationFailureHandler"
@@ -104,14 +104,14 @@
                 class="com.template.security.shared.RequestParameterDirectUrlResolver">
         <beans:property name="parameterName" value="token"/>
         <beans:property name="pattern" value="backend"/>
-        <beans:property name="loginUrl" value="/backend/login?error=1"/>
+        <beans:property name="directUrl" value="/backend/login?error=1"/>
     </beans:bean>
 
     <beans:bean id="forendAuthenticationFailureUrlResolver"
                 class="com.template.security.shared.RequestParameterDirectUrlResolver">
         <beans:property name="parameterName" value="token"/>
         <beans:property name="pattern" value="forend"/>
-        <beans:property name="loginUrl" value="/forend/login?error=1"/>
+        <beans:property name="directUrl" value="/forend/login?error=1"/>
     </beans:bean>
 
 

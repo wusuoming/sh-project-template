@@ -10,21 +10,21 @@ import javax.servlet.http.HttpServletRequest;
  */
 public abstract class AbstractDirectUrlResolver implements DirectUrlResolver {
     protected String pattern;
-    protected String loginUrl;
+    protected String directUrl;
 
     @Override
     public abstract boolean support(HttpServletRequest request);
 
     @Override
     public String directUrl() {
-        return this.loginUrl;
+        return this.directUrl;
     }
 
     public void setPattern(String pattern) {
         this.pattern = pattern;
     }
 
-    public void setLoginUrl(String loginUrl) {
-        this.loginUrl = loginUrl;
+    public void setDirectUrl(String directUrl) {
+        this.directUrl = directUrl;
     }
 }
