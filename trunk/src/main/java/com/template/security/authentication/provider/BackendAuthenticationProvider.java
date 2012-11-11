@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,7 +30,8 @@ public class BackendAuthenticationProvider implements AuthenticationProvider {
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             return authenticationToken;
         }
-        throw new AuthenticationServiceException("The username or password is not correct!");
+
+        throw new UsernameNotFoundException("The username or password is not correct!");
     }
 
     @Override

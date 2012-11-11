@@ -2,6 +2,7 @@ package com.template.security.authentication.handler;
 
 import com.template.security.shared.DirectUrlResolver;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ import java.util.List;
  * Date: 12-11-9
  * Time: 下午11:20
  */
-public class MultipleAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+public class MultipleAuthenticationFailureHandler extends ExceptionMappingAuthenticationFailureHandler {
     private List<DirectUrlResolver> resolvers = new ArrayList<DirectUrlResolver>();
 
     @Override

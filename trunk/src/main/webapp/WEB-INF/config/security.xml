@@ -91,29 +91,20 @@
     </beans:bean>
 
     <beans:bean id="multipleAuthenticationFailureHandler"
-                class="com.template.security.authentication.handler.MultipleAuthenticationFailureHandler">
-        <beans:property name="resolvers">
-            <beans:list>
-                <beans:ref bean="backendAuthenticationFailureUrlResolver"/>
-                <beans:ref bean="forendAuthenticationFailureUrlResolver"/>
-            </beans:list>
+                class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+        <beans:property name="exceptionMappings">
+            <beans:map>
+                <beans:entry key="com.template.security.exception.EmailNotFoundException"
+                             value="/forend/login?error=1"/>
+                <beans:entry key="com.template.security.exception.PhoneNotFoundException"
+                             value="/forend/login?error=2"/>
+                <beans:entry key="org.springframework.security.core.userdetails.UsernameNotFoundException"
+                             value="/backend/login?error=1"/>
+                <beans:entry key="com.template.security.exception.CaptchaWrongException"
+                             value="/backend/login?error=2"/>
+            </beans:map>
         </beans:property>
     </beans:bean>
-
-    <beans:bean id="backendAuthenticationFailureUrlResolver"
-                class="com.template.security.shared.RequestParameterDirectUrlResolver">
-        <beans:property name="parameterName" value="token"/>
-        <beans:property name="pattern" value="backend"/>
-        <beans:property name="directUrl" value="/backend/login?error=1"/>
-    </beans:bean>
-
-    <beans:bean id="forendAuthenticationFailureUrlResolver"
-                class="com.template.security.shared.RequestParameterDirectUrlResolver">
-        <beans:property name="parameterName" value="token"/>
-        <beans:property name="pattern" value="forend"/>
-        <beans:property name="directUrl" value="/forend/login?error=1"/>
-    </beans:bean>
-
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="forendAuthenticationProvider"/>
