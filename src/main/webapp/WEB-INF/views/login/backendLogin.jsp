@@ -7,8 +7,8 @@
 </head>
 <body>
 <p>
-    <a href="/forend/login">第一种登录</a>
-    <a href="javascript:void(0)">第二种登录</a>
+    <a href="/forend/login">前台登录</a>
+    <a href="javascript:void(0)">后台登录</a>
 </p>
 
 <form action="/login/check?token=backend" method="post">
@@ -25,6 +25,16 @@
                 <input type="password" name="password"/>
             </td>
         </tr>
+        <c:choose>
+            <c:when test="${param.error == 1}">
+                <tr>
+                    <td colspan="2" style="color: #ff0000;">用户名或密码错误</td>
+                </tr>
+            </c:when>
+            <c:when test="${param.error == 2}">
+
+            </c:when>
+        </c:choose>
         <tr>
             <td colspan="2">
                 <input type="submit" value="提交"/>

@@ -1,6 +1,8 @@
 package com.template.security.authentication.provider;
 
 import com.template.security.authentication.token.ForendAuthenticationToken;
+import com.template.security.exception.EmailNotFoundException;
+import com.template.security.exception.PhoneNotFoundException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,16 @@ public class ForendAuthenticationProvider implements AuthenticationProvider {
         ForendAuthenticationToken authenticationToken = (ForendAuthenticationToken) authentication;
         String email = authenticationToken.getEmail();
         String phone = authenticationToken.getPhone();
+
+        if (!email.endsWith("@qq.com")) {
+            throw new EmailNotFoundException("Email not found!");
+        }
+
+        if (!phone.startsWith("139")) {
+            throw new PhoneNotFoundException("Phone not found");
+        }
+
+
         if (email.endsWith("@qq.com") && phone.startsWith("139")) {
             authenticationToken.setAuthenticated(true);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);

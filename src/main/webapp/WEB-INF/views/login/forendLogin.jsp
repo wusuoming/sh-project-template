@@ -7,8 +7,8 @@
 </head>
 <body>
 <p>
-    <a href="javascript:void(0)">第一种登录</a>
-    <a href="/backend/login">第二种登录</a>
+    <a href="javascript:void(0)">前台登录</a>
+    <a href="/backend/login">后台登录</a>
 </p>
 
 <form action="/login/check?token=forend" method="post">
@@ -25,6 +25,18 @@
                 <input type="text" name="phone"/>
             </td>
         </tr>
+        <c:choose>
+            <c:when test="${param.error == 1}">
+                <tr>
+                    <td colspan="2" style="color: #ff0000;">Email not found!</td>
+                </tr>
+            </c:when>
+            <c:when test="${param.error ==2}">
+                <tr>
+                    <td colspan="2" style="color: #ff0000;">Phone not found!</td>
+                </tr>
+            </c:when>
+        </c:choose>
         <tr>
             <td colspan="2">
                 <input type="submit" value="提交"/>
