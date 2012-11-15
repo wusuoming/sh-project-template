@@ -50,7 +50,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        throw new UnsupportedOperationException("Not yet implemented!");
+        List<User> users = this.userDao.findUsersByUsername(username);
+        if (users.isEmpty()) {
+            return null;
+        }
+        return users.get(0);
     }
 
     public void setUserDao(UserDao userDao) {

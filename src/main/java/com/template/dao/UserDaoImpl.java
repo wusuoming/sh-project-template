@@ -35,4 +35,9 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    public List<User> findUsersByUsername(String username) {
+        return getHibernateTemplate().find("from User u where u.username=?", username);
+    }
+
 }
