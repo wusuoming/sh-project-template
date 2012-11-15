@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS user;
 CREATE TABLE user(
-  id int(12) NOT NULL auto_increment DEFAULT 0,
+  id int(12) NOT NULL auto_increment,
   version int(12) NOT NULL DEFAULT 0,
   active tinyint(1) default 0 COMMENT '1 for YES or 0 for NO',
   guid varchar(255) DEFAULT NULL ,
@@ -11,7 +11,7 @@ CREATE TABLE user(
 
 DROP TABLE IF EXISTS role;
 CREATE TABLE role(
-  id int(12) NOT NULL auto_increment DEFAULT 0,
+  id int(12) NOT NULL auto_increment,
   version int(12) NOT NULL DEFAULT 0,
   active tinyint(1) default 0 COMMENT '1 for YES or 0 for NO',
   guid varchar(255) DEFAULT NULL ,

@@ -1,7 +1,7 @@
 package com.template.model;
 
-import com.template.model.BasicObject;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -34,7 +34,9 @@ public class User extends BasicObject implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return authorities;
     }
 
     @Override
@@ -49,21 +51,21 @@ public class User extends BasicObject implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.getActive();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        return true;
     }
 }

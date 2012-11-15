@@ -13,9 +13,11 @@
 
         <custom-filter ref="multipleAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER"/>
 
+        <remember-me services-ref="rememberMeServices" key="ZhongGang"/>
+
         <intercept-url pattern="/backend/login/success" access="ROLE_ADMIN"/>
         <intercept-url pattern="/forend/login/success" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/**" access="ROLE_ADMIN"/>
     </http>
 
     <beans:bean id="multipleAuthenticationLoginEntry"
@@ -51,6 +53,16 @@
         <beans:property name="authenticationManager" ref="authenticationManager"/>
         <beans:property name="authenticationSuccessHandler" ref="multipleAuthenticationSuccessHandler"/>
         <beans:property name="authenticationFailureHandler" ref="multipleAuthenticationFailureHandler"/>
+        <beans:property name="rememberMeServices" ref="rememberMeServices"/>
+    </beans:bean>
+
+    <beans:bean id="rememberMeServices"
+                class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+        <beans:property name="key" value="ZhongGang"/>
+        <!--<beans:property name="alwaysRemember" value="true"/>-->
+        <beans:property name="parameter" value="rememberMe"/>
+        <beans:property name="tokenValiditySeconds" value="604800"/>
+        <beans:property name="userDetailsService" ref="userService"/>
     </beans:bean>
 
     <beans:bean id="backendAuthenticationTokenResolver"
@@ -106,13 +118,16 @@
         </beans:property>
     </beans:bean>
 
-    <authentication-manager alias="authenticationManager">
+    <authentication-manager alias="authenticationManager" erase-credentials="false">
         <authentication-provider ref="forendAuthenticationProvider"/>
         <authentication-provider ref="backendAuthenticationProvider"/>
     </authentication-manager>
 
     <beans:bean id="backendAuthenticationProvider"
-                class="com.template.security.authentication.provider.BackendAuthenticationProvider"/>
+                class="com.template.security.authentication.provider.BackendAuthenticationProvider">
+        <beans:property name="userDetailsService" ref="userService"/>
+    </beans:bean>
+
     <beans:bean id="forendAuthenticationProvider"
                 class="com.template.security.authentication.provider.ForendAuthenticationProvider"/>
 </beans:beans>

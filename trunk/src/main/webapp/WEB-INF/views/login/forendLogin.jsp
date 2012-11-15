@@ -7,7 +7,7 @@
 </head>
 <body>
 <p>
-    <a href="javascript:void(0)">前台登录</a>
+    前台登录
     <a href="/backend/login">后台登录</a>
 </p>
 
@@ -23,6 +23,11 @@
             <td>电话号码：</td>
             <td>
                 <input type="text" name="phone"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input name="_spring_security_remember_me" type="checkbox" value="true"/>记住我？
             </td>
         </tr>
         <c:choose>

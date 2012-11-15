@@ -1,6 +1,7 @@
 package com.template.dao.standard;
 
 import com.template.model.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface UserDao {
     void createUser(User user);
 
     List<User> findUsers();
+
+    List<User> findUsersByUsername(String username);
 }

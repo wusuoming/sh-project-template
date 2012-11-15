@@ -8,7 +8,7 @@
 <body>
 <p>
     <a href="/forend/login">前台登录</a>
-    <a href="javascript:void(0)">后台登录</a>
+    后台登录
 </p>
 
 <form action="/login/check?token=backend" method="post">
@@ -23,6 +23,11 @@
             <td>密码：</td>
             <td>
                 <input type="password" name="password"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input name="rememberMe" type="checkbox" value="true"/>记住我？
             </td>
         </tr>
         <c:choose>
