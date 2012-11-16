@@ -56,13 +56,28 @@
         <beans:property name="rememberMeServices" ref="rememberMeServices"/>
     </beans:bean>
 
+    <!--<beans:bean id="rememberMeServices"-->
+    <!--class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">-->
+    <!--<beans:property name="key" value="ZhongGang"/>-->
+    <!--&lt;!&ndash;<beans:property name="alwaysRemember" value="true"/>&ndash;&gt;-->
+    <!--<beans:property name="parameter" value="rememberMe"/>-->
+    <!--<beans:property name="tokenValiditySeconds" value="604800"/>-->
+    <!--<beans:property name="userDetailsService" ref="userService"/>-->
+    <!--</beans:bean>-->
+
     <beans:bean id="rememberMeServices"
-                class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+                class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">
         <beans:property name="key" value="ZhongGang"/>
-        <!--<beans:property name="alwaysRemember" value="true"/>-->
         <beans:property name="parameter" value="rememberMe"/>
-        <beans:property name="tokenValiditySeconds" value="604800"/>
+        <beans:property name="cookieName" value="rememberMe"/>
         <beans:property name="userDetailsService" ref="userService"/>
+        <beans:property name="tokenRepository" ref="tokenRepository"/>
+    </beans:bean>
+
+    <beans:bean id="tokenRepository"
+                class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+        <beans:property name="createTableOnStartup" value="true"/>
+        <beans:property name="dataSource" ref="dataSource"/>
     </beans:bean>
 
     <beans:bean id="backendAuthenticationTokenResolver"
