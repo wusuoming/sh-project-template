@@ -12,11 +12,10 @@
     <http entry-point-ref="multipleAuthenticationLoginEntry" authentication-manager-ref="authenticationManager">
 
         <custom-filter ref="multipleAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER"/>
+        <custom-filter ref="switchUserFilter" after="FILTER_SECURITY_INTERCEPTOR"/>
 
         <remember-me services-ref="rememberMeServices" key="ZhongGang"/>
 
-        <intercept-url pattern="/backend/login/success" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/forend/login/success" access="ROLE_ADMIN"/>
         <intercept-url pattern="/**" access="ROLE_ADMIN"/>
     </http>
 
@@ -29,6 +28,14 @@
                 <beans:ref bean="forendLoginEntry"/>
             </beans:list>
         </beans:property>
+    </beans:bean>
+
+    <beans:bean id="switchUserFilter" class="org.springframework.security.web.authentication.switchuser.SwitchUserFilter">
+        <beans:property name="userDetailsService" ref="userService"/>
+        <beans:property name="usernameParameter" value="username"/>
+        <beans:property name="targetUrl" value="/switch/success"/>
+        <beans:property name="switchUserUrl" value="/switch"/>
+        <beans:property name="exitUserUrl" value="/exit"/>
     </beans:bean>
 
     <beans:bean id="backendLoginEntry" class="com.template.security.shared.RequestUriDirectUrlResolver">
@@ -76,7 +83,7 @@
 
     <beans:bean id="tokenRepository"
                 class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
-        <beans:property name="createTableOnStartup" value="true"/>
+        <!--<beans:property name="createTableOnStartup" value="true"/>-->
         <beans:property name="dataSource" ref="dataSource"/>
     </beans:bean>
 

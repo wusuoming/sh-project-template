@@ -32,7 +32,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
     @Override
     public List<User> findUsers() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return getHibernateTemplate().find("from User");
     }
 
     @Override

@@ -16,8 +16,12 @@
     <bean id="backendLoginController" class="com.template.controllers.BackendLoginController"/>
 
     <bean id="backendAuthenticationSuccessController"
-          class="com.template.controllers.BackendAuthenticationSuccessController"/>
+          class="com.template.controllers.BackendAuthenticationSuccessController">
+        <property name="userService" ref="userService"/>
+    </bean>
 
     <bean id="forendAuthenticationSuccessController"
           class="com.template.controllers.ForendAuthenticationSuccessController"/>
+
+    <bean id="switchUserSuccessController" class="com.template.controllers.SwitchUserSuccessController"/>
 </beans>
