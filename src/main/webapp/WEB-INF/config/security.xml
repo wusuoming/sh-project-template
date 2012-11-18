@@ -12,7 +12,7 @@
     <http entry-point-ref="multipleAuthenticationLoginEntry" authentication-manager-ref="authenticationManager">
 
         <custom-filter ref="multipleAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER"/>
-        <custom-filter ref="switchUserFilter" after="FILTER_SECURITY_INTERCEPTOR"/>
+        <custom-filter ref="switchUserFilter" position="SWITCH_USER_FILTER"/>
 
         <remember-me services-ref="rememberMeServices" key="ZhongGang"/>
 
