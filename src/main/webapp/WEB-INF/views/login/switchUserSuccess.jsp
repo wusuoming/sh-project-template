@@ -12,7 +12,11 @@
 
     <%
         PrintWriter writer = response.getWriter();
-        writer.println(request.getRemoteUser());
+        writer.println("Remote user : " + request.getRemoteUser());
+        writer.println("Auth type : " + request.getAuthType());
+        writer.println("Context path : " + request.getContextPath());
+        writer.println("Servlet path : " + request.getServletPath());
+        writer.println("Remote user : " + request.getUserPrincipal());
     %>
 </h1>
 
