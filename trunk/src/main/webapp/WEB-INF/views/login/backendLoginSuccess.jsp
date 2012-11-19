@@ -30,5 +30,9 @@
     </tbody>
 </table>
 </p>
+
+<p>
+    <a href="/logout">退出后台</a>
+</p>
 </body>
 </html>
