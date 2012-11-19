@@ -14,10 +14,30 @@
         <custom-filter ref="multipleAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER"/>
         <custom-filter ref="switchUserFilter" position="SWITCH_USER_FILTER"/>
 
+        <logout logout-url="/logout" success-handler-ref="multipleLogoutSuccessHandler"/>
+
         <remember-me services-ref="rememberMeServices" key="ZhongGang"/>
 
         <intercept-url pattern="/**" access="ROLE_ADMIN"/>
     </http>
+
+    <beans:bean id="multipleLogoutSuccessHandler" class="com.template.security.logout.MultipleLogoutSuccessHandler">
+        <beans:property name="resolvers">
+            <beans:list>
+                <beans:ref local="forendLogoutSuccessUrlResolver"/>
+                <beans:ref local="backendLogoutSuccessUrlResolver"/>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+
+    <beans:bean id="forendLogoutSuccessUrlResolver" class="com.template.security.logout.ForendLogoutSuccessUrlResolver">
+        <beans:property name="url" value="/forend/login"/>
+    </beans:bean>
+
+    <beans:bean id="backendLogoutSuccessUrlResolver"
+                class="com.template.security.logout.BackendLogoutSuccessUrlResolver">
+        <beans:property name="url" value="/backend/login"/>
+    </beans:bean>
 
     <beans:bean id="multipleAuthenticationLoginEntry"
                 class="com.template.security.login.MultipleAuthenticationLoginEntry">
@@ -30,7 +50,8 @@
         </beans:property>
     </beans:bean>
 
-    <beans:bean id="switchUserFilter" class="org.springframework.security.web.authentication.switchuser.SwitchUserFilter">
+    <beans:bean id="switchUserFilter"
+                class="org.springframework.security.web.authentication.switchuser.SwitchUserFilter">
         <beans:property name="userDetailsService" ref="userService"/>
         <beans:property name="usernameParameter" value="username"/>
         <beans:property name="targetUrl" value="/switch/success"/>

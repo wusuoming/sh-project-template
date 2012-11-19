@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <input name="_spring_security_remember_me" type="checkbox" value="true"/>记住我？
+                <input name="rememberMe" type="checkbox" value="true"/>记住我？
             </td>
         </tr>
         <c:choose>
