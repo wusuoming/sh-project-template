@@ -14,11 +14,15 @@
         <custom-filter ref="multipleAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER"/>
         <custom-filter ref="switchUserFilter" position="SWITCH_USER_FILTER"/>
 
+        <!--<anonymous enabled="true" key="template" username="ZhongGang"/>-->
+
         <logout logout-url="/logout" success-handler-ref="multipleLogoutSuccessHandler"/>
 
         <remember-me services-ref="rememberMeServices" key="ZhongGang"/>
 
-        <intercept-url pattern="/**" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/backend/login/success" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/forend/login/success" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY,IS_AUTHENTICATED_ANONYMOUSLY"/>
     </http>
 
     <beans:bean id="multipleLogoutSuccessHandler" class="com.template.security.logout.MultipleLogoutSuccessHandler">
@@ -164,7 +168,12 @@
     <authentication-manager alias="authenticationManager" erase-credentials="false">
         <authentication-provider ref="forendAuthenticationProvider"/>
         <authentication-provider ref="backendAuthenticationProvider"/>
+        <authentication-provider ref="anonymousAuthenticationProvider"/>
     </authentication-manager>
+
+    <beans:bean id="anonymousAuthenticationProvider" class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
+            <beans:property name="key" value="template"/>
+    </beans:bean>
 
     <beans:bean id="backendAuthenticationProvider"
                 class="com.template.security.authentication.provider.BackendAuthenticationProvider">

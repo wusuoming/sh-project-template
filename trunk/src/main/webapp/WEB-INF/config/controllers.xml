@@ -24,4 +24,6 @@
           class="com.template.controllers.ForendAuthenticationSuccessController"/>
 
     <bean id="switchUserSuccessController" class="com.template.controllers.SwitchUserSuccessController"/>
+
+    <bean id="anonymousController" class="com.template.controllers.AnonymousController"/>
 </beans>

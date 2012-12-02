@@ -31,6 +31,7 @@
                 <prop key="/forend/login/success">forendAuthenticationSuccessController</prop>
                 <prop key="/backend/login/success">backendAuthenticationSuccessController</prop>
                 <prop key="/switch/success">switchUserSuccessController</prop>
+                <prop key="/anonymous/success">anonymousController</prop>
             </props>
         </property>
     </bean>
