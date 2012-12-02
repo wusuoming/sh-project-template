@@ -14,7 +14,7 @@
         <custom-filter ref="multipleAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER"/>
         <custom-filter ref="switchUserFilter" position="SWITCH_USER_FILTER"/>
 
-        <!--<anonymous enabled="true" key="template" username="ZhongGang"/>-->
+        <anonymous enabled="true" key="template" username="ZhongGang"/>
 
         <logout logout-url="/logout" success-handler-ref="multipleLogoutSuccessHandler"/>
 
