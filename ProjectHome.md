@@ -1,0 +1,1 @@
+spring+hibernate project template based on maven, in order to implement multiple login
